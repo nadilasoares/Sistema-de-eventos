@@ -6,19 +6,14 @@
     box-sizing: border-box;
 }
 
-html,
 body {
-    min-height: 100vh;
-    width: 100%;
-}
-
-body {
-    background: linear-gradient(29deg, #14919B, #0AD1C8);
+    background: linear-gradient(135deg, #0A71C8 0%, #00C8D6 100%);
     background-attachment: fixed;
 }
 
 #signin-img {
-    max-width: 600px;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 #signin-form {
@@ -26,21 +21,18 @@ body {
     padding: 30px;
 }
 
-#login-divisor {
-    color: #8C8B8B;
-}
-
+.btn,
 #sigin-button {
     border-radius: 50px;
 }
 
 #login-button {
     border: 1px solid #8C8B8B;
-    border-radius: 50px;
 }
 
 main {
-    gap: 50px;
+    min-height: 100vh;
+    gap: 2rem;
     font-family: "Instrument Sans", sans-serif;
     color: #8C8B8B;
 }
@@ -52,13 +44,12 @@ main h1 {
 }
 
 #form-container {
-    min-width: 300px;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     padding: 0 15px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     main {
         gap: 30px;
     }
@@ -68,19 +59,8 @@ main h1 {
         text-align: center;
     }
 
-    #signin-img {
+    .sigin-img {
         max-width: 80%;
-    }
-}
-
-@media (max-width: 480px) {
-    #signin-form {
-        padding: 20px;
-    }
-
-    main {
-        padding: 10px;
-        gap: 20px;
     }
 }
 
