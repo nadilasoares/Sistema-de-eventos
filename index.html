@@ -24,12 +24,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="d-flex justify-content-center align-items-center">
-    <main class="d-flex justify-content-center align-items-center flex-wrap w-100">
-        <div class="background-image">
-            <img src="./pictures/login.png" alt="Login" id="login-img">
+<body class="d-flex align-items-center">
+    <main class="container-fluid d-flex flex-wrap justify-content-center align-items-center">
+        <div class="col-md-5 background-image d-flex justify-content-center align-items-center">
+            <img src="./pictures/login.png" class="w-100" alt="Login" id="login-img">
         </div>
-        <div class="form-container">
+        <div class="col-md-5 form-container">
             <form action="" class="bg-light w-100 user-form">
                 <h1>Olá,<br>tudo bem?</h1>
                 <p>Novo(a) por aqui? <a href="./pages/signin.html">Inscreva-se!</a></p>
@@ -41,7 +41,7 @@
                     <input type="password" name="senha" id="senha" placeholder=" " required />
                     <label for="senha">Senha</label>
                 </div>
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center justify-content-between password">
                     <label class="remember">
                         <input type="checkbox" id="remember-me" />
                         Lembrar-me
@@ -51,14 +51,14 @@
                 <div class="d-flex justify-content-center mt-3">
                     <button class="btn btn-primary w-100 form-button">Fazer login</button>
                 </div>
-                <div class="d-flex align-items-center justify-content-center mt-3">
+                <div class="d-flex align-items-center justify-content-center mt-3 gap-3 logar-com">
                     <div class="rect-divider"></div>
-                    <span>Logar com</span>
+                    <span class="text-center">Logar com</span>
                     <div class="rect-divider"></div>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mt-3">
                     <button
-                        class="d-flex align-items-center justify-content-center gap-2 btn btn-light w-100 form-button google-button">
+                        class="d-flex align-items-center justify-content-center gap-2 btn btn-outline-secondary w-100 form-button google-button">
                         <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google icon"
                             class="google-icon" />
                         <span>Google</span>

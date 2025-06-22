@@ -1,13 +1,12 @@
 body {
     min-height: 100vh;
-    background: linear-gradient(29deg, #14919B, #0AD1C8);
-    background-attachment: fixed;
+    background: linear-gradient(125deg, #14919B, #0AD1C8);
 }
 
 main {
     font-family: "Instrument Sans", sans-serif;
     color: #8C8B8B;
-    padding: 1rem;
+    margin: 0 auto;
 }
 
 main h1 {
@@ -21,8 +20,7 @@ main h1 {
 }
 
 .background-image img {
-    max-width: 100%;
-    max-height: calc(100vh - 2rem - 30px);
+    max-width: 30rem;
 }
 
 .form-container {
@@ -39,10 +37,24 @@ form .btn {
 
 .user-form {
     border-radius: 30px;
-    padding: 2rem;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Floating Label Styles --- */
+.rect-divider {
+    flex: 1;
+    height: 1px;
+    background-color: #8C8B8B;
+}
+
+.btn.google-button {
+    border: 1px solid #8C8B8B;
+    color: #8C8B8B;
+}
+
+.google-icon {
+    max-width: 2rem;
+}
 
 .label-float {
     position: relative;
@@ -56,8 +68,7 @@ form .btn {
     border-radius: 20px;
     outline: none;
     width: 100%;
-    padding: clamp(10px, 1.8vw, 16px) clamp(12px, 1.8vw, 18px);
-    font-size: clamp(12px, 1vw, 15px);
+    padding: clamp(10px, 1.8vw, 16px) clamp(15px, 1.8vw, 18px);
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     transition: all 0.2s ease-in-out;
@@ -75,8 +86,7 @@ form .btn {
     pointer-events: none;
     position: absolute;
     top: clamp(10px, 1.8vw, 16px);
-    left: clamp(12px, 1.8vw, 18px);
-    font-size: clamp(12px, 1vw, 15px);
+    left: clamp(15px, 1.8vw, 18px);
     color: #8C8B8B;
     background-color: white;
     padding: 0 5px;
@@ -87,16 +97,43 @@ form .btn {
 .label-float input:focus+label,
 .label-float input:not(:placeholder-shown)+label {
     top: -10px;
-    font-size: clamp(10px, 0.7vw, 12px);
+    font-size: clamp(10px, 0.7vw, 15px);
     color: #0A71C8;
     font-weight: 600;
     left: clamp(10px, 1.5vw, 15px);
 }
 
-/* --- End Floating Label Styles --- */
+@media (max-width: 992px) {
+    .background-image {
+        max-width: 500px;
+    }
+}
 
 @media (max-width: 768px) {
-    main {
-        padding: 1.3rem;
+    .user-form {
+        padding: 1.5rem;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    .form-container {
+        padding-bottom: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .user-form {
+        border-radius: 20px;
+    }
+
+    .user-form h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .logar-com span {
+        font-size: 0.9rem;
     }
 }
