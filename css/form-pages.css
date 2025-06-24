@@ -63,7 +63,8 @@ form .btn {
     min-height: 3.5em;
 }
 
-.label-float input {
+.label-float input,
+.label-float textarea {
     border: 1px solid #ccc;
     border-radius: 20px;
     outline: none;
@@ -74,11 +75,13 @@ form .btn {
     transition: all 0.2s ease-in-out;
 }
 
-.label-float input:focus {
+.label-float input:focus,
+.label-float textarea:focus {
     border: 2px solid #0A71C8;
 }
 
-.label-float input::placeholder {
+.label-float input::placeholder,
+.label-float textarea::placeholder {
     color: transparent;
 }
 
@@ -88,14 +91,16 @@ form .btn {
     top: clamp(10px, 1.8vw, 16px);
     left: clamp(15px, 1.8vw, 18px);
     color: #8C8B8B;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     padding: 0 5px;
     transition: all 0.2s ease-in-out;
     z-index: 1;
 }
 
 .label-float input:focus+label,
-.label-float input:not(:placeholder-shown)+label {
+.label-float input:not(:placeholder-shown)+label,
+.label-float textarea:focus+label,
+.label-float textarea:not(:placeholder-shown)+label {
     top: -10px;
     font-size: clamp(10px, 0.7vw, 15px);
     color: #0A71C8;
