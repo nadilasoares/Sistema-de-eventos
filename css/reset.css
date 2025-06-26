@@ -9,7 +9,6 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(125deg, #135FC2, #0AD1C8);
 }
 
 main {
@@ -31,10 +30,6 @@ main .card-title {
 footer {
     background: linear-gradient(to right, #135FC2, #0AD1C8);
     font-family: "Kodchasan", sans-serif;
-}
-
-.login-button {
-    padding: 0 .8rem;
 }
 
 @media (max-width: 900px) {

@@ -1,0 +1,50 @@
+.main-banner {
+    max-height: 50rem;
+    object-fit: cover;
+}
+
+.data-evento img {
+    max-width: 2.35rem;
+}
+
+.data-evento span {
+    font-size: 1.4rem;
+}
+
+.presentation p {
+    line-height: 2rem;
+}
+
+.presentation .card {
+    max-width: 100%;
+}
+
+.btn-container .btn {
+    padding: .4rem 1.5rem; 
+    border-radius: 2rem;
+}
+
+.btn-container .btn img {
+    width: 2rem;
+}
+
+.btn-container .btn span{
+    font-size: 1.2rem;
+}
+
+@media (max-width: 1200px) {
+    .monitoria-sugerida h2 {
+        text-align: center;
+    }
+
+    .monitoria-sugerida .cards-container {
+        justify-content: center;
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 900px) {
+    nav.navbar {
+        border-radius: .5rem 0 0;
+    }
+}

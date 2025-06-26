@@ -15,13 +15,6 @@ body {
     max-width: 40rem;
 }
 
-.card {
-    width: 18rem;
-    display: flex;
-    flex-direction: column;
-    padding: .5rem;
-}
-
 @media (max-width: 768px) {
     .main-title {
         width: 100%;
