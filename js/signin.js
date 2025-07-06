@@ -1,7 +1,16 @@
 const form = document.querySelector("#form-signin");
 
+function alertRemove() {
+    const alertDanger = document.querySelector(".alert-danger");
+
+    if (alertDanger) {
+        alertDanger.remove();
+    }
+}
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    alertRemove();
 
     const url = "http://localhost:3000/api/users";
 
@@ -35,12 +44,12 @@ form.addEventListener("submit", async (e) => {
 
         if (!response.ok) {
             const alert = document.createElement("div");
-            alert.classList.add("alert", "alert-danger", "w-100");
+            alert.classList.add("alert", "alert-danger", "w-100", "text-center");
             alert.setAttribute("role", "alert");
             alert.textContent = "Dados inválidos!";
             alertContainer.appendChild(alert);
             form.reset();
-            
+
             throw new Error(`Response status: ${response.status}`);
         }
 
