@@ -1,3 +1,5 @@
+// Refatorar funções em arquivo separado para evitar repetição de código
+
 const form = document.querySelector("#form-signin");
 
 function createAlert(content) {
@@ -55,7 +57,7 @@ form.addEventListener("submit", async (e) => {
         const data = await response.json();
 
         if (!response.ok) {
-            // Validação de erros do usuário no form(NÃO MEXA)
+            // Validação de erros do usuário no form de cadastro
             const error = data.error.toLowerCase();
             let input = null;
 

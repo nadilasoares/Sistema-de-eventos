@@ -30,7 +30,7 @@
             <img src="../pictures/login.png" class="w-100" alt="Login" id="login-img">
         </div>
         <div class="col-md-5 form-container">
-            <form action="" class="bg-light w-100 user-form">
+            <form class="bg-light w-100 user-form" id="user-form">
                 <h1>Olá,<br>tudo bem?</h1>
                 <p>Novo(a) por aqui? <a href="../pages/signin.html">Inscreva-se!</a></p>
                 <div class="label-float">
@@ -48,8 +48,11 @@
                     </label>
                     <a href="#" class="forgot-link">Esqueceu a senha?</a>
                 </div>
+
+                <div class="d-flex justify-content-center mt-3" id="alert"></div>
+
                 <div class="d-flex justify-content-center mt-3">
-                    <button class="btn btn-primary w-100 form-button">Fazer login</button>
+                    <button type="submit" class="btn btn-primary w-100 form-button">Fazer login</button>
                 </div>
                 <div class="d-flex align-items-center justify-content-center mt-3 gap-3 logar-com">
                     <div class="rect-divider"></div>
@@ -79,6 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script src="../js/login.js"></script>
 </body>
 
 </html>
