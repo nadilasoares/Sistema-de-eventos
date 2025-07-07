@@ -55,6 +55,7 @@ form.addEventListener("submit", async (e) => {
         const data = await response.json();
 
         if (!response.ok) {
+            // Validação de erros do usuário no form(NÃO MEXA)
             const error = data.error.toLowerCase();
             let input = null;
 
