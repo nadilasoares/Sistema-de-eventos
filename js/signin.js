@@ -1,5 +1,18 @@
 const form = document.querySelector("#form-signin");
 
+function createAlert(content) {
+    if (content) {
+        alertRemove();
+
+        const alertContainer = document.querySelector("#alert");
+        const alert = document.createElement("div");
+        alert.classList.add("alert", "alert-danger", "w-100", "text-center");
+        alert.setAttribute("role", "alert");
+        alert.textContent = content;
+        alertContainer.appendChild(alert);
+    }
+}
+
 function alertRemove() {
     const alertDanger = document.querySelector(".alert-danger");
 
@@ -10,7 +23,6 @@ function alertRemove() {
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    alertRemove();
 
     const url = "http://localhost:3000/api/users";
 
@@ -21,7 +33,6 @@ form.addEventListener("submit", async (e) => {
         const confirmPassword = document.querySelector("#confirm-pass-input").value;
         const matricula = document.querySelector("#matricula-input").value.trim();
         const cpf = document.querySelector("#cpf-input").value.trim();
-        const alertContainer = document.querySelector("#alert");
 
         if (password !== confirmPassword) {
             alert("As senhas são diferentes!");
@@ -41,19 +52,39 @@ form.addEventListener("submit", async (e) => {
                 cpf
             })
         });
+        const data = await response.json();
 
         if (!response.ok) {
-            const alert = document.createElement("div");
-            alert.classList.add("alert", "alert-danger", "w-100", "text-center");
-            alert.setAttribute("role", "alert");
-            alert.textContent = "Dados inválidos!";
-            alertContainer.appendChild(alert);
-            form.reset();
+            const error = data.error.toLowerCase();
+            let input = null;
+
+            if (error.includes("nome")) {
+                input = document.querySelector(".label-float #name-input");
+            } else if (error.includes("email") || error.includes("e-mail")) {
+                input = document.querySelector(".label-float #email-input");
+            } else if (error.includes("matricula") || error.includes("matrícula")) {
+                input = document.querySelector(".label-float #matricula-input");
+            } else if (error.includes("cpf")) {
+                input = document.querySelector(".label-float #cpf-input");
+            } else if (error.includes("senha")) {
+                input = document.querySelector(".label-float #pass-input");
+            }
+
+            if (input) {
+                const wrapper = input.closest('.label-float');
+
+                if (wrapper) {
+                    const label = wrapper.querySelector('label');
+                    input.style.border = "2px solid #C7110A";
+                    label.style.color = "#C7110A";
+                }
+            }
+
+            createAlert(data.error);
 
             throw new Error(`Response status: ${response.status}`);
         }
 
-        const data = await response.json();
         form.reset();
         window.location.href = "./login.html";
     } catch (error) {
