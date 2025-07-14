@@ -23,6 +23,7 @@ function alertRemove() {
     }
 }
 
+// Alterar fluxo com POST
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 

@@ -78,7 +78,7 @@ form.addEventListener("submit", async (e) => {
 
                 if (wrapper) {
                     const label = wrapper.querySelector('label');
-                    input.style.border = "2px solid #C7110A";
+                    input.style.borderColor = "#C7110A";
                     label.style.color = "#C7110A";
                 }
             }
