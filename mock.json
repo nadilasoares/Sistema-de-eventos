@@ -1,0 +1,13 @@
+{
+    "certificados": [
+        {
+            "id": 1,
+            "nomeEvento": "MONITORIA: REVISÃO PARA A PROVA — KAHOOT E MINI TESTE",
+            "cargaHoraria": 2,
+            "dataInicio": "2025-03-31",
+            "dataFim": "2025-07-31",
+            "validado": true,
+            "arquivoUrl": "/src/public/pdf/certificado.pdf"
+        }
+    ]
+}
