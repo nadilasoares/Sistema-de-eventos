@@ -2,27 +2,6 @@
 
 const form = document.querySelector("#user-form");
 
-function createAlert(content) {
-    if (content) {
-        alertRemove();
-
-        const alertContainer = document.querySelector("#alert");
-        const alert = document.createElement("div");
-        alert.classList.add("alert", "alert-danger", "w-100", "text-center");
-        alert.setAttribute("role", "alert");
-        alert.textContent = content;
-        alertContainer.appendChild(alert);
-    }
-}
-
-function alertRemove() {
-    const alertDanger = document.querySelector(".alert-danger");
-
-    if (alertDanger) {
-        alertDanger.remove();
-    }
-}
-
 // Alterar fluxo com POST
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -30,7 +9,6 @@ form.addEventListener("submit", async (e) => {
     const url = "http://localhost:3000/api/users/login";
 
     try {
-        // Campos de login
         const email = document.querySelector("#usuario-nome").value.trim();
         const password = document.querySelector("#usuario-senha").value.trim();
 
@@ -46,14 +24,15 @@ form.addEventListener("submit", async (e) => {
         });
 
         const data = await response.json();
+        
 
         if (!response.ok) {
             const error = data.error.toLowerCase();
             let input = null;
 
-            if (error.includes("user") || error.includes("email") ||error.includes("e-mail")) {
+            if (error.includes("user") || error.includes("email") || error.includes("e-mail")) {
                 input = document.querySelector("#usuario-nome");
-            }else if (error.includes("password")) {
+            } else if (error.includes("password")) {
                 input = document.querySelector("#usuario-senha");
             }
 
@@ -73,9 +52,13 @@ form.addEventListener("submit", async (e) => {
         }
 
         if (data.token) {
-            localStorage.setItem('authToken', data.token);
-            console.log(localStorage.getItem('authToken'));
-            // window.location.href = '../pages/certificates.html';
+            localStorage.setItem('authToken', data.token);            
+
+            if (data.user.role == "participant") {
+                window.location.href = '/src/public/pages/certificates.html';
+            } else {
+                window.location.href = '/src/public/pages/tutoria.html';
+            }
         }
     } catch (error) {
         console.error(error);

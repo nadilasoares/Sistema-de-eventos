@@ -36,9 +36,12 @@ footer {
 }
 
 @media (max-width: 900px) {
-    nav.navbar,
     footer {
         border-radius: .5rem;
+    }
+
+    nav.navbar {
+        border-radius: .5rem .5rem 0 0;
     }
 
     body {

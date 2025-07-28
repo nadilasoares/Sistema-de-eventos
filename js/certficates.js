@@ -1,26 +1,24 @@
-// const token = localStorage.getItem('authToken');
+const token = localStorage.getItem('authToken');
 
 async function getData() {
-    // const url = "http://localhost:3000/api/users/me";
-    const url = "../mock.json";
+    const url = "http://localhost:3000/api/users/me";
 
     try {
-        // const response = await fetch(url, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`,
-        //         'Content-Type': 'application/json'
-        //     }
-        // });
-
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
 
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
 
         const data = await response.json();
-        loadCertificationCard(data);
+        console.log(data);
+        loadUserContent(data);
+        // loadCertificationCard(data);
     } catch (error) {
         console.error(error);
     }
@@ -57,6 +55,55 @@ function extractDate(date) {
     };
 }
 
+function loadUserContent(data) {
+    const userName = document.querySelectorAll(".user-name-span");
+
+    userName.forEach(user => {
+        user.textContent = data.name;
+    });
+}
+
+async function uploadFile(file) {
+    const url = "http://localhost:3000/api/certificates/upload";
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            body: formData
+        });
+
+
+        const text = await response.text(); // resposta como texto bruto
+        console.log('Erro backend:', text); // veja detalhes da exception
+
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const inputFile = document.querySelector("#upload-certificado");
+
+inputFile.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+        uploadFile(file);
+    }
+});
+
 function loadCertificationCard({ certificados }) {
     if (!certificados) {
         alert("Não foram identificados certificados no banco!");
@@ -68,16 +115,15 @@ function loadCertificationCard({ certificados }) {
 
     certificados.forEach(certificado => {
         const dataInicio = certificado.dataInicio;
-        const {mes: mesInicio, dia: diaInicio} = extractDate(dataInicio);
+        const { mes: mesInicio, dia: diaInicio } = extractDate(dataInicio);
 
         const dataFim = certificado.dataFim;
-        const {ano: anoFim, mes: mesFim, dia: diaFim} = extractDate(dataFim);
+        const { ano: anoFim, mes: mesFim, dia: diaFim } = extractDate(dataFim);
 
         const nomeEvento = certificado.nomeEvento;
         const cargaHoraria = certificado.cargaHoraria;
         const arquivoUrl = certificado.arquivoUrl;
         console.log(arquivoUrl);
-        
 
         accordionItem += `
             <div class="accordion-item">
@@ -85,7 +131,7 @@ function loadCertificationCard({ certificados }) {
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapse${dateToMonth(dataInicio)}" aria-expanded="false" aria-controls="collapse${dateToMonth(dataInicio)}"
                         id="btn${dateToMonth(dataInicio)}">
-                        Julho
+                        ${dateToMonth(dataInicio)}
                     </button>
                 </h2>
                 <div id="collapse${dateToMonth(dataInicio)}" class="accordion-collapse collapse">
