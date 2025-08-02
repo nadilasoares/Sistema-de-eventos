@@ -68,7 +68,7 @@ form.addEventListener("submit", async (e) => {
         }
 
         form.reset();
-        window.location.href = "/src/public/index.html";
+        window.location.href = "../index.html";
     } catch (error) {
         console.error(error);
     }

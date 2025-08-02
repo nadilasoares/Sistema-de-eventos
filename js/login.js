@@ -24,7 +24,7 @@ form.addEventListener("submit", async (e) => {
         });
 
         const data = await response.json();
-        
+
 
         if (!response.ok) {
             const error = data.error.toLowerCase();
@@ -52,12 +52,12 @@ form.addEventListener("submit", async (e) => {
         }
 
         if (data.token) {
-            localStorage.setItem('authToken', data.token);            
+            localStorage.setItem('authToken', data.token);
 
             if (data.user.role == "participant") {
-                window.location.href = '/src/public/pages/certificates.html';
+                window.location.href = '../pages/certificates.html';
             } else {
-                window.location.href = '/src/public/pages/tutoria.html';
+                window.location.href = '../pages/tutoria.html';
             }
         }
     } catch (error) {

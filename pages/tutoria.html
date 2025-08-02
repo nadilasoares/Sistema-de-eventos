@@ -66,15 +66,19 @@
     <main class="container-fluid d-flex flex-column flex-fill p-5">
 
         <h2>Data de referência</h2>
-        <form class="row g-3 mb-4">
+        <form class="row g-3 mb-4" id="salvar-data-referencia">
             <div class="col-md-6">
                 <label for="mes-referencia" style="font-size: 1.1rem;">Mês</label>
-                <input type="date" name="mes-referencia" id="mes-referencia" class="form-control" required />
+                <input type="number" name="mes-referencia" id="mes-referencia" min="0" class="form-control" required
+                    max="12" />
+                <div class="mt-2" id="alert"></div>
             </div>
 
             <div class="col-md-6">
                 <label for="ano-referencia" style="font-size: 1.1rem;">Ano</label>
-                <input type="date" name="ano-referencia" id="ano-referencia" class="form-control" required />
+                <input type="number" name="ano-referencia" id="ano-referencia" min="0" class="form-control" required
+                    max="9999" />
+                <div class="mt-2" id="alert"></div>
             </div>
 
             <div class="col-auto mt-3 w-100">
@@ -111,18 +115,16 @@
                         <th scope="col">Aluno(a)</th>
                         <th scope="col">E-mail</th>
                         <th scope="col">Matrícula</th>
-                        <th scope="col">CPF</th>
                         <th scope="col">Insconsistências</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
-                <tbody class="align-middle" id="table-content">
+                <tbody class="align-middle" id="tabela-alunos-conteudo">
                     <tr>
                         <th scope="row">1</th>
                         <td>João Silva</td>
                         <td>joao@exemplo.com</td>
                         <td>123456</td>
-                        <td>01234567890</td>
                         <td>
                             <div class="d-flex align-items-center text-danger gap-1 certificate-notification justify-content-center"
                                 id="certificate-notification-error">
@@ -146,7 +148,6 @@
                         <td>João Silva</td>
                         <td>joao@exemplo.com</td>
                         <td>123456</td>
-                        <td>01234567890</td>
                         <td>
                             <div class="d-flex align-items-center text-danger gap-1 certificate-notification justify-content-center"
                                 id="certificate-notification-error">
@@ -170,7 +171,6 @@
                         <td>João Silva</td>
                         <td>joao@exemplo.com</td>
                         <td>123456</td>
-                        <td>01234567890</td>
                         <td>
                             <div class="d-flex align-items-center text-danger gap-1 certificate-notification justify-content-center"
                                 id="certificate-notification-error">
@@ -209,71 +209,9 @@
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
 
-    <script>
-        const token = localStorage.getItem('authToken');
+    <script src="../js/alert.js"></script>
 
-        async function getUserData() {
-            const url = "http://localhost:3000/api/users/me";
-
-            try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        getUserData();
-
-        function loadUserContent(data) {
-            const userName = document.querySelectorAll(".user-name-span");
-
-            userName.forEach(user => {
-                user.textContent = data.name;
-            });
-        }
-
-        async function referenceMonth() {
-            const url = "http://localhost:3000/api/certificates/reference-month";
-
-            const mesReferencia = document.querySelector("#mes-referencia").value;
-            const anoReferencia = document.querySelector("#ano-referencia").value;
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                    body: {
-                        "month": mesReferencia,
-                    }
-                });
-
-
-                if (!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-    </script>
+    <script src="../js/tutoria.js"></script>
 </body>
 
 </html>
