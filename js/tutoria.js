@@ -70,6 +70,7 @@ async function loadTableContent() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 
@@ -85,7 +86,7 @@ async function loadTableContent() {
         let cont = 0;
 
         data.forEach(user => {
-            if (user) {
+            if (user.role.includes("participant")) {
                 cont++;
 
                 tableContent = `

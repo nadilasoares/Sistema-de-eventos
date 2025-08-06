@@ -15,12 +15,20 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/cards.css">
     <link rel="stylesheet" href="../css/certificates.css">
+    <link rel="stylesheet" href="../css/forms.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+        textarea.form-control {
+            resize: none;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column bg-light">
@@ -76,9 +84,10 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="btn btn-primary d-flex align-items-center gap-2 user-link" href="#">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <span class="user-name-span" id="nav-user-name">Ícaro</span>
+                            <a class="d-flex align-items-center gap-2 user-link text-decoration-none"
+                                href="../pages/editar-perfil.html">
+                                <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 2rem;"></i>
+                                <span class="user-name-span nav-user-name" id="nav-user-name">Ícaro</span>
                             </a>
                         </li>
                     </ul>
@@ -90,89 +99,119 @@
     <main class="container-fluid d-flex flex-column flex-fill p-5">
         <h1 class="mb-4">Certificados de <span class="user-name-span" id="user-name-span-title">Ícaro</span></h1>
 
-        <div class="mb-4">
-            <label class="btn btn-primary d-flex align-items-center gap-2 upload-certificado" for="upload-certificado">
-                <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                <span>Fazer upload do certificado</span>
-            </label>
-            <input type="file" id="upload-certificado" hidden>
-        </div>
+        <form class="row g-3 mb-4" id="form-certificado" enctype="multipart/form-data">
+            <div class="col-md-12">
+                <span class="text-danger">*</span>
+                <label class="btn btn-primary d-flex align-items-center gap-2 upload-certificado"
+                    for="upload-certificado">
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                    <span>Fazer upload do certificado</span>
+                </label> 
+                <input type="file" id="upload-certificado" name="upload-certificado" hidden required>
+                <div class="mt-2" id="alert"></div>
+            </div>
+            
+            <div class="col-md-12">
+                <label for="titulo-certificado" style="font-size: 1.1rem;">Título</label>
+                <input type="text" name="titulo-certificado" id="titulo-certificado" class="form-control" />
+                <div class="mt-2" id="alert"></div>
+            </div>
+            
+            <div class="col-md-12">
+                <label for="descricao-certificado" style="font-size: 1.1rem;">Descrição</label>
+                <textarea name="descricao-certificado" id="descricao-certificado" class="form-control" rows="4"></textarea>
+                <div class="mt-2" id="alert"></div>
+            </div>
 
-        <div class="accordion" id="accordion-certificados">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="month-title">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseMarco" aria-expanded="false" aria-controls="collapseMarco"
-                        id="btnMarco">
-                        Março
-                    </button>
-                </h2>
-                <div id="collapseMarco" class="accordion-collapse collapse show">
-                    <div class="accordion-body d-flex flex-column gap-3">
-                        <div class="d-flex align-items-center text-danger gap-1 certificate-notification"
-                            id="certificate-notification-error">
-                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                            <span>Período incorreto!</span>
-                        </div>
+            <div class="col-md-6">
+                <label for="instituicao-certificado" style="font-size: 1.1rem;">Instituição</label>
+                <input type="text" name="instituicao-certificado" id="instituicao-certificado" class="form-control" />
+                <div class="mt-2" id="alert"></div>
+            </div>
 
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <div class="d-flex card-container justify-content-between align-items-center">
-                                    <div class="d-flex flex-column gap-3">
-                                        <h3 class="card-title text-left">Monitoria 2025.1 - Sistemas Operacionais
-                                        </h3>
+            <div class="col-md-6">
+                <label for="carga-horaria-certificado" style="font-size: 1.1rem;">Carga horária</label>
+                <input type="number" name="carga-horaria-certificado" id="carga-horaria-certificado" min="0" class="form-control" max="24" />
+                <div class="mt-2" id="alert"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="data-inicio-certificado" style="font-size: 1.1rem;">Data de início</label>
+                <input type="date" name="data-inicio-certificado" id="data-inicio-certificado" class="form-control" />
+                <div class="mt-2" id="alert"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <label for="data-fim-certificado" style="font-size: 1.1rem;">Data de fim</label>
+                <input type="date" name="data-fim-certificado" id="data-fim-certificado" class="form-control" />
+                <div class="mt-2" id="alert"></div>
+            </div>
 
-                                        <div class="d-flex align-items-center gap-4 calendar-hours-container">
-                                            <div class="d-flex gap-2 align-items-center">
-                                                <img src="../pictures/calendar.svg" class="calendar-icon"
-                                                    alt="Data do certificado">
-                                                <div class="card-sub-text"><span id="date-begin">31/03</span> à
-                                                    <span id="date-end">31/07</span>/<span id="year">2025</span>
-                                                </div>
-                                            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
 
-                                            <div class="d-flex gap-2 align-items-center">
-                                                <img src="../pictures/timer.svg" class="calendar-icon"
-                                                    alt="Horas do certificado">
-                                                <div class="card-sub-text" id="">8 horas</div>
-                                            </div>
-                                        </div>
+        <div class="d-flex flex-column gap-3" id="certificados-container">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex card-container justify-content-between align-items-center">
+                        <div class="d-flex flex-column gap-3">
+                            <h3 class="card-title text-left">Monitoria 2025.1 - Sistemas Operacionais
+                            </h3>
+
+                            <div class="d-flex align-items-center gap-4 calendar-hours-container">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <img src="../pictures/calendar.svg" class="calendar-icon" alt="Data do certificado">
+                                    <div class="card-sub-text"><span id="date-begin">31/03</span> à
+                                        <span id="date-end">31/07</span>/<span id="year">2025</span>
                                     </div>
+                                </div>
 
-                                    <a href="../pictures/calendar.svg" download class="btn btn-primary">Baixar
-                                        arquivo</a>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <img src="../pictures/timer.svg" class="calendar-icon" alt="Horas do certificado">
+                                    <div class="card-sub-text" id="">8 horas</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <div class="d-flex card-container justify-content-between align-items-center">
-                                    <div class="d-flex flex-column gap-3">
-                                        <h3 class="card-title text-left">Monitoria 2025.1 - Sistemas Operacionais
-                                        </h3>
+                        <div class="d-flex align-items-center gap-3">
+                            <button type="button" class="btn btn-danger">Remover</button>
 
-                                        <div class="d-flex align-items-center gap-4 calendar-hours-container">
-                                            <div class="d-flex gap-2 align-items-center">
-                                                <img src="../pictures/calendar.svg" class="calendar-icon"
-                                                    alt="Data do certificado">
-                                                <div class="card-sub-text"><span id="date-begin">31/03</span> à
-                                                    <span id="date-end">31/07</span>/<span id="year">2025</span>
-                                                </div>
-                                            </div>
+                            <a href="../pictures/calendar.svg" download class="btn btn-primary">Baixar
+                                arquivo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                            <div class="d-flex gap-2 align-items-center">
-                                                <img src="../pictures/timer.svg" class="calendar-icon"
-                                                    alt="Horas do certificado">
-                                                <div class="card-sub-text" id="">8 horas</div>
-                                            </div>
-                                        </div>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex card-container justify-content-between align-items-center">
+                        <div class="d-flex flex-column gap-3">
+                            <h3 class="card-title text-left">Monitoria 2025.1 - Sistemas Operacionais
+                            </h3>
+
+                            <div class="d-flex align-items-center gap-4 calendar-hours-container">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <img src="../pictures/calendar.svg" class="calendar-icon" alt="Data do certificado">
+                                    <div class="card-sub-text"><span id="date-begin">31/03</span> à
+                                        <span id="date-end">31/07</span>/<span id="year">2025</span>
                                     </div>
+                                </div>
 
-                                    <a href="../pictures/calendar.svg" download class="btn btn-primary">Baixar
-                                        arquivo</a>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <img src="../pictures/timer.svg" class="calendar-icon" alt="Horas do certificado">
+                                    <div class="card-sub-text" id="">8 horas</div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <a href="../pictures/calendar.svg" download class="btn btn-danger">Remover</a>
+
+                            <a href="../pictures/calendar.svg" download class="btn btn-primary">Baixar
+                                arquivo</a>
                         </div>
                     </div>
                 </div>
@@ -184,7 +223,7 @@
         <div class="d-flex align-items-center text-danger gap-1 certificate-notification"
             id="certificate-notification-error">
             <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-            <span>Período incorreto!</span>
+            <span>Fora do período da data de referência</span>
         </div>
 
         <div class="d-flex align-items-center text-warning gap-1 certificate-notification"
@@ -203,6 +242,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <!-- <script src="../js/get-data-api.js"></script> -->
+
     <script src="../js/certficates.js"></script>
 </body>
 

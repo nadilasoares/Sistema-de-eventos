@@ -1,8 +1,5 @@
-// Refatorar funções em arquivo separado para evitar repetição de código
-
 const form = document.querySelector("#user-form");
 
-// Alterar fluxo com POST
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 

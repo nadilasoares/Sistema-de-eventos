@@ -15,7 +15,6 @@
 
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/forms.css">
-    <link rel="stylesheet" href="../css/tutoria.css">
 
     <style>
         .usuario-icon {
@@ -81,9 +80,9 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="btn btn-primary d-flex align-items-center gap-2 user-link" href="./editar-perfil.html">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <span class="nav-user-name" id="nav-user-name">Ícaro</span>
+                            <a class="d-flex align-items-center gap-2 user-link text-decoration-none" href="../pages/editar-perfil.html">
+                                <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 2rem;"></i>
+                                <span class="user-name-span nav-user-name" id="nav-user-name">Ícaro</span>
                             </a>
                         </li>
                     </ul>
@@ -99,14 +98,14 @@
             <div class="d-flex gap-3 flex-column">
                 <h2 class="text-light mb-0">Ícaro</h2>
 
-                <span class="text-primary-blue bg-light rounded px-2 py-1 align-self-start">
+                <!-- <span class="text-primary-blue bg-light rounded px-2 py-1 align-self-start">
                     Bolsista
                 </span>
 
 
                 <p class="text-light">
                     Entusiasta de eventos e networking.
-                </p>
+                </p> -->
             </div>
         </div>
 
@@ -118,7 +117,7 @@
                 </p>
             </div>
 
-            <form action="" class="w-100">
+            <form action="" class="w-100" id="form-atualizar-user">
                 <div class="label-float">
                     <input type="text" name="nome" id="nome" placeholder=" " required />
                     <label for="nome">Nome completo</label>
@@ -128,15 +127,19 @@
                     <label for="email">E-mail</label>
                 </div>
                 <div class="label-float">
-                    <input type="tel" name="telefone" id="telefone" placeholder=" " required />
-                    <label for="telefone">Telefone</label>
+                    <input type="password" name="senha" id="senha" placeholder=" " required />
+                    <label for="senha">Senha</label>
                 </div>
                 <div class="label-float">
-                    <textarea name="descricao" id="descricao" placeholder=" " rows="4"></textarea>
-                    <label for="descricao">Sua descrição</label>
+                    <input type="text" name="matricula" id="matricula" placeholder=" " required />
+                    <label for="matricula">Matrícula</label>
+                </div>
+                <div class="label-float">
+                    <input type="text" name="cpf" id="cpf" placeholder=" " required />
+                    <label for="cpf">CPF</label>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <button class="btn btn-primary w-100 form-button">Atualizar</button>
+                    <button type="submit" class="btn btn-primary w-100 form-button">Atualizar</button>
                 </div>
             </form>
         </div>
