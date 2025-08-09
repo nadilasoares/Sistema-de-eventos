@@ -43,7 +43,7 @@ form.addEventListener("submit", async (e) => {
                 }
             }
 
-            createAlert(data.error);
+            createAlert(data.error, false);
 
             throw new Error(`Response status: ${response.status}`);
         }

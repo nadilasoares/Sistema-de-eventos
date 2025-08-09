@@ -1,20 +1,27 @@
-function createAlert(content) {
+function createAlert(content, alertType) {
     if (content) {
         alertRemove();
 
         const alertContainer = document.querySelector("#alert");
         const alert = document.createElement("div");
-        alert.classList.add("alert", "alert-danger", "w-100", "text-center");
+        alert.classList.add("alert", "w-100", "text-center");
         alert.setAttribute("role", "alert");
+
+        if (alertType) {
+            alert.classList.add("alert-success");
+        } else {
+            alert.classList.add("alert-danger");
+        }
+
         alert.textContent = content;
         alertContainer.appendChild(alert);
     }
 }
 
 function alertRemove() {
-    const alertDanger = document.querySelector(".alert-danger");
+    const alert = document.querySelector(".alert");
 
-    if (alertDanger) {
-        alertDanger.remove();
+    if (alert) {
+        alert.remove();
     }
 }

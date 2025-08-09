@@ -14,6 +14,11 @@ form.addEventListener("submit", async (e) => {
         const confirmPassword = document.querySelector("#confirm-pass-input").value;
         const matricula = document.querySelector("#matricula-input").value.trim();
         const cpf = document.querySelector("#cpf-input").value.trim();
+        let role = "participant";
+        checkAdmin = document.querySelector("#checkAdmin");
+        if (checkAdmin && checkAdmin.checked) {
+            role = "admin";
+        }
 
         if (password !== confirmPassword) {
             alert("As senhas são diferentes!");
@@ -30,7 +35,8 @@ form.addEventListener("submit", async (e) => {
                 email,
                 password,
                 matricula,
-                cpf
+                cpf,
+                role
             })
         });
         const data = await response.json();
@@ -62,7 +68,7 @@ form.addEventListener("submit", async (e) => {
                 }
             }
 
-            createAlert(data.error);
+            createAlert(data.error, false);
 
             throw new Error(`Response status: ${response.status}`);
         }

@@ -1,46 +1,8 @@
 const token = localStorage.getItem('authToken');
 let currentUserId = null;
 
-async function uploadFile(file, title) {
-    const url = "http://localhost:3000/api/certificates/upload";
 
-    const formData = new FormData();
-    formData.append("certificate", file);
-
-    existsInFormData(formData, "title", title);
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        });
-
-        const certificate = await response.json();
-
-        if (!response.ok) {
-            createAlert(certificate.error, false);
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        if (currentUserId) {
-            await loadCertificateCards(currentUserId);
-        } else {
-            console.error("ID do usuário não disponível para recarregar a lista.");
-        }
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-function existsInFormData(formData, valFormData, val) {
-    if (val) {
-        formData.append(`${valFormData}`, val);
-    }
-}
-
-function certificateCardBody(title, formattedStartDate, formattedEndDate, year, workload, certificateUrl, status) {
+function certificateCardBody(title, formattedStartDate, formattedEndDate, year, workload, status) {
     const statusBadge = certificateBadge(status);
 
     const card = `
@@ -51,6 +13,7 @@ function certificateCardBody(title, formattedStartDate, formattedEndDate, year, 
                         <h3 class="card-title text-left mb-0">${title}</h3>
                         ${statusBadge}
                     </div>
+
                     <div class="d-flex align-items-center gap-4 calendar-hours-container">
                         <div class="d-flex gap-2 align-items-center">
                             <img src="../pictures/calendar.svg" class="calendar-icon" alt="Data do certificado">
@@ -67,9 +30,9 @@ function certificateCardBody(title, formattedStartDate, formattedEndDate, year, 
                 </div>
 
                 <div class="d-flex align-items-center gap-3">
-                    <button type="button" class="btn btn-danger remove-certificate-button">Remover</button>
+                    <button type="button" class="btn btn-success certificate-success">Aceitar</button>
 
-                    <a href="http://localhost:3000${certificateUrl}" target="_blank" download class="btn btn-primary">Baixar arquivo</a>                           
+                    <button type="button" class="btn btn-danger certificate-denied">Negar</button>                           
                 </div>
             </div>
         </div>
@@ -98,33 +61,53 @@ function createCertificateCard(certificate) {
 
     const year = startDate.getFullYear();
 
-    certificateCard.innerHTML = certificateCardBody(certificate.title, formattedStartDate, formattedEndDate, year, certificate.workload, certificate.certificateUrl, certificate.status);
+    certificateCard.innerHTML = certificateCardBody(certificate.title, formattedStartDate, formattedEndDate, year, certificate.workload, certificate.status);
 
     certificatesContainer.appendChild(certificateCard);
 
-    const removeCertificateButton = certificateCard.querySelector(".remove-certificate-button");
+    const certficateSuccess = certificateCard.querySelector(".certificate-success");
+    certficateSuccess.addEventListener("click", async () => {
+        const success = await validateCertificate(certificate.id, "approved", token);
+        if (success) {
+            updateCardStatus(certificateCard, 'approved');
+        }
+    });
 
-    removeCertificateButton.addEventListener("click", async () => {
-        await removeCertificate(certificate.id, certificateCard);
+    const certficateDenied = certificateCard.querySelector(".certificate-denied");
+    certficateDenied.addEventListener("click", async () => {
+        const rejected = await validateCertificate(certificate.id, "rejected", token);
+        if (rejected) {
+            updateCardStatus(certificateCard, 'rejected');
+        }
     });
 }
 
-async function removeCertificate(certificateId, cardElement) {
-    if (!certificateId) {
-        console.error("Id do certificado não disponível!");
+async function getUserId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userIdFromUrl = urlParams.get('userId');
+
+    if (!userIdFromUrl) {
+        console.error("ID do usuário não encontrado na URL.");
+    }
+
+    const currentUserId = userIdFromUrl;
+
+    await loadUserContent(currentUserId);
+    await loadCertificateCards(currentUserId);
+}
+
+async function loadUserContent(dataId) {
+    if (!dataId) {
+        console.error("Id do usuário não informado!");
         return;
     }
 
-    if (!cardElement) {
-        console.error("Card não disponível!");
-        return;
-    }
+    const url = `http://localhost:3000/api/users/${dataId}`;
 
-    const url = `http://localhost:3000/api/certificates/${certificateId}`;
 
     try {
         const response = await fetch(url, {
-            method: 'DELETE',
+            method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -134,27 +117,17 @@ async function removeCertificate(certificateId, cardElement) {
             throw new Error(`Response status: ${response.status}`);
         }
 
-        cardElement.remove();
+        const data = await response.json();
+        const userNameSpans = document.querySelectorAll(".user-name-span-title");
+
+        userNameSpans.forEach(span => {
+            span.textContent = data.name;
+        });
+
     } catch (error) {
         console.error(error);
     }
 }
-
-const formCertificate = document.querySelector("#form-certificado");
-
-formCertificate.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const file = document.querySelector("#upload-certificado").files[0];
-    const title = document.querySelector("#titulo-certificado").value;
-
-    if (!file) {
-        alert("Faça upload do arquivo do certificado!");
-        return;
-    }
-
-    uploadFile(file, title);
-});
 
 async function loadCertificateCards(userId) {
     if (!userId) {
@@ -182,6 +155,8 @@ async function loadCertificateCards(userId) {
 
         const certificates = data.certificates;
 
+        console.log(certificates);
+
         if (Array.isArray(certificates) && certificates.length > 0) {
             certificates.forEach(certificate => {
                 createCertificateCard(certificate);
@@ -194,31 +169,8 @@ async function loadCertificateCards(userId) {
     }
 }
 
-async function getUserMeId() {
-    const url = "http://localhost:3000/api/users/me";
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        currentUserId = data.id;
-        loadCertificateCards(currentUserId);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
+    getUserId();
     const dataUser = await getUserMeData(token);
     loadUserMeContent(dataUser);
-    getUserMeId();
 });

@@ -1,4 +1,4 @@
-async function getUserData() {
+async function getUserMeData(token) {
     const url = "http://localhost:3000/api/users/me";
 
     try {
@@ -14,16 +14,27 @@ async function getUserData() {
         }
 
         const data = await response.json();
-        loadUserContent(data);
+
+        return data;
     } catch (error) {
         console.error(error);
     }
 }
 
-function loadUserContent(data) {
+function loadUserMeContent(data) {
+    if (!data) {
+        console.error("Dados do usuário não disponíveis!");
+        return;
+    }
+
     const userName = document.querySelectorAll(".user-name-span");
+    const userEmail = document.querySelectorAll(".user-email-span");
 
     userName.forEach(user => {
         user.textContent = data.name;
+    });
+    
+    userEmail.forEach(user => {
+        user.textContent = data.email;
     });
 }
